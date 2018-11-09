@@ -7,7 +7,7 @@ static void sighandler(int signo)
 {
   if (signo == SIGUSR1)
     {
-      printf("My dad is %d.\n", getppid());
+      printf("My daddy is %d :P\n", getppid());
     }
   else if (signo == SIGINT)
     {
