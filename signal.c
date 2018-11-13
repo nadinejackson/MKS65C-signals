@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
 
 static void sighandler(int signo)
 {
@@ -11,7 +15,13 @@ static void sighandler(int signo)
     }
   else if (signo == SIGINT)
     {
-      printf("You SIGINTED you mean person\n");
+      printf("NOOOOOO I'M MELTIIIIIIIIING........ (see log.txt for the message)\n");
+      int opener = open("./log.txt", O_WRONLY | O_CREAT | O_APPEND, 0666);
+
+      char message[64] = "\nThe process has exited due to SIGINT.\n";
+      write(opener, message, sizeof(message));
+
+      close(opener);
       exit(0);
     }
 }
